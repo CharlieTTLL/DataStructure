@@ -3,7 +3,8 @@ package hashmap;
 import java.util.Arrays;
 
 public class MyHashMap<K, V> {
-	public Node<K, V>[] array;
+	//if you wanna test, just modify to public
+	private Node<K, V>[] array;
 	private int size;
 	private static final int INIT_CAP = 10;
 	private static final double LOAD_FACTOR = 0.7;
@@ -11,19 +12,23 @@ public class MyHashMap<K, V> {
 		array = (Node<K, V>[]) new Node[INIT_CAP];
 		size = 0;
 	}
+	
 	//get current size of hashmap
 	public int size() {
 		return size;
 	}
+	
 	//hashmap is empty or not
 	public boolean isEmpty() {
 		return size == 0;
 	}
+	
 	//clear whole hashmap
 	public void clear() {
 		Arrays.fill(array, null);
 		size = 0;
 	}
+	
 	//hashmap contains "key" or not
 	public boolean containsKey(K key) {
 		int index = index(key);
@@ -39,6 +44,7 @@ public class MyHashMap<K, V> {
 		}
 		return false;
 	}
+	
 	//put key-value to hashmap, return object is last object
 	public V put(K key, V value) {
 		int index = index(key);
@@ -62,6 +68,7 @@ public class MyHashMap<K, V> {
 		}
 		return null;
 	}
+	
 	//get value of specific key
 	public V get(K key) {
 		int index = index(key);
@@ -77,6 +84,7 @@ public class MyHashMap<K, V> {
 		}
 		return null;
 	}
+	
 	//remove key from hashmap
 	public V remove(K key) {
 		int index = index(key);
@@ -105,6 +113,7 @@ public class MyHashMap<K, V> {
 		}
 		return null;
 	}
+	
 	//expand array size
 	private void rehash() {
 		Node<K, V>[] old = array;
@@ -119,6 +128,7 @@ public class MyHashMap<K, V> {
 			}
 		}
 	}
+	
 	//hash() function1
 	private int hash(K key) {
 		if (key == null) {
@@ -127,15 +137,18 @@ public class MyHashMap<K, V> {
 		// & with maximum of int long
 		return key.hashCode() & 0x7fffffff;
 	}
+	
 	//hash() function2 ---> index bullets
 	private int index(K key) {
 		int hashNumber = hash(key);
 		return hashNumber % array.length;
 	}
+	
 	//compare two key
 	private boolean equals(K a, K b) {
 		return a == b || a != null && a.equals(b);
 	}
+	
 	private boolean needRehashing() {
 		return size > array.length * LOAD_FACTOR;
 	}
