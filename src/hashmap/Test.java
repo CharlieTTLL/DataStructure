@@ -42,6 +42,5 @@ public class Test {
 		map.put("1asd", 13);
 		//assess entry[] to be public just test
 		System.out.println(map.size());
-		System.out.println(map.array.length);
 	}
 }

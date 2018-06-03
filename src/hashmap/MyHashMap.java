@@ -14,23 +14,23 @@ public class MyHashMap<K, V> {
 	}
 	
 	//get current size of hashmap
-	public int size() {
+	public synchronized int size() {
 		return size;
 	}
 	
 	//hashmap is empty or not
-	public boolean isEmpty() {
+	public synchronized boolean isEmpty() {
 		return size == 0;
 	}
 	
 	//clear whole hashmap
-	public void clear() {
+	public synchronized void clear() {
 		Arrays.fill(array, null);
 		size = 0;
 	}
 	
 	//hashmap contains "key" or not
-	public boolean containsKey(K key) {
+	public synchronized boolean containsKey(K key) {
 		int index = index(key);
 //		if (array[index] == null) {
 //			return false;
@@ -46,7 +46,7 @@ public class MyHashMap<K, V> {
 	}
 	
 	//put key-value to hashmap, return object is last object
-	public V put(K key, V value) {
+	public synchronized V put(K key, V value) {
 		int index = index(key);
 		Node head = array[index];
 		while (head != null) {
@@ -70,7 +70,7 @@ public class MyHashMap<K, V> {
 	}
 	
 	//get value of specific key
-	public V get(K key) {
+	public synchronized V get(K key) {
 		int index = index(key);
 //		if (array[index] == null) {
 //			return null;
@@ -86,7 +86,7 @@ public class MyHashMap<K, V> {
 	}
 	
 	//remove key from hashmap
-	public V remove(K key) {
+	public synchronized V remove(K key) {
 		int index = index(key);
 		//no such key
 		if (array[index] == null) {
@@ -114,7 +114,8 @@ public class MyHashMap<K, V> {
 		return null;
 	}
 	
-	//expand array size
+	//expand array size, and rehash() is in put(key, value) so
+	//we don't need synchronized one more time
 	private void rehash() {
 		Node<K, V>[] old = array;
 		array = (Node<K, V>[]) new Node[old.length * 2];

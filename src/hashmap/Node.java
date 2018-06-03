@@ -15,10 +15,10 @@ public class Node<K, V> {
 	public K getKey() {
 		return this.key;
 	}
-	public V getValue() {
+	public synchronized V getValue() {
 		return this.value;
 	}
-	public void setValue(V value) {
+	public synchronized void setValue(V value) {
 		this.value = value;
 	}
 }
